@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: th3-service
+
+spec:
+  ports:
+    - targetPort: web
+      port: 8080
+  selector:
+    app: th3

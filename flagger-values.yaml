@@ -1,0 +1,4 @@
+prometheus:
+  install: true
+
+meshProvider: traefik

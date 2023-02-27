@@ -1,0 +1,44 @@
+deployment:
+  podAnnotations:
+    prometheus.io/port: "9100"
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+metrics:
+  prometheus:
+    entryPoint: metrics
+
+
+providers:
+  kubernetesCRD:
+    enabled: true
+    namespaces:
+      - "traefik"
+      - "th3"
+  kubernetesIngress:
+    enabled: false
+
+service:
+  type: NodePort
+
+ingressRoute:
+  dashboard:
+    enabled: true
+
+additionalArguments:
+  - "--entrypoints.web.forwardedHeaders.insecure"
+  - "--api.insecure"
+
+ports:
+  traefik:
+    port: 9000
+    expose: true
+    exposedPort: 9000
+    protocol: TCP
+    nodePort: 30890
+  web:
+    port: 8080
+    expose: true
+    exposedPort: 80
+    protocol: TCP
+    nodePort: 30888
+

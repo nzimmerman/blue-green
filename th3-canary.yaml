@@ -1,0 +1,25 @@
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: th3-canary
+  namespace: th3
+spec:
+  provider: traefik
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: th3-deployment
+  progressDeadlineSeconds: 60
+  service:
+    port: 8080
+    targetPort: 8080
+  analysis:
+    interval: 10s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+    - name: request-success-rate
+      interval: 20s
+      thresholdRange:
+        min: 99

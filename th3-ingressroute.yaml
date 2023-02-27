@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: th3
+  namespace: th3
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: PathPrefix(`/version`) || PathPrefix(`/api/v1/translate`)
+    kind: Rule
+    services:
+    - name: th3-deployment
+      kind: TraefikService
+      port: 8080

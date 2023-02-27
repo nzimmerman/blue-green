@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: th3-deployment
+  labels:
+    app: th3
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: th3
+  template:
+    metadata:
+      labels:
+        app: th3
+    spec:
+      containers:
+        - name: th3
+          image: th3:0.0.1
+          ports:
+            - name: web
+              containerPort: 8080
